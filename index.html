@@ -88,16 +88,30 @@
             if(menuName === 'voice') titleEl.innerText = "Voice Narator Generator";
         }
 
-        function generateContent() {
+        async function generateContent() {
             const prompt = document.getElementById('prompt-input').value;
             const output = document.getElementById('output-result');
             if(!prompt) return alert('Mohon isi instruksi terlebih dahulu!');
 
-            output.innerHTML = `<div class="animate-pulse text-cyan-400">Memproses kecerdasan buatan VividAI...</div>`;
-            
-            setTimeout(() => {
-                output.innerHTML = `<div class="text-left space-y-2"><p class="text-green-400 font-bold">✨ Berhasil Digenerate!</p><p class="text-gray-300 text-xs bg-darkbg p-3 rounded-lg border border-gray-800">Hasil dari prompt: "${prompt}" telah diproses dengan sukses oleh sistem VividAI Studio.</p></div>`;
-            }, 1500);
+            output.innerHTML = `<div class="animate-pulse text-cyan-400">Sedang memproses AI sungguhan...</div>`;
+
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+                
+                const data = await response.json();
+                
+                if(data.result) {
+                    output.innerHTML = `<div class="text-left space-y-2 max-h-96 overflow-y-auto"><p class="text-green-400 font-bold">✨ Hasil AI:</p><p class="text-gray-200 text-xs bg-darkbg p-3 rounded-lg border border-gray-800 whitespace-pre-wrap">${data.result}</p></div>`;
+                } else {
+                    output.innerHTML = `<span class="text-red-400">Gagal: ${data.error || 'Terjadi kesalahan sistem.'}</span>`;
+                }
+            } catch (err) {
+                output.innerHTML = `<span class="text-red-400">Gagal terhubung ke server backend.</span>`;
+            }
         }
     </script>
 </body>
