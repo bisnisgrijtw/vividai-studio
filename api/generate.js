@@ -1,3 +1,11 @@
+export const config = {
+    api: {
+        bodyParser: {
+            sizeLimit: '10mb', // Batas ukuran file gambar yang diupload
+        },
+    },
+};
+
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -17,21 +25,43 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { prompt } = req.body;
+        const { prompt, images } = req.body;
         const apiKey = process.env.GEMINI_API_KEY;
 
         if (!apiKey) {
             return res.status(500).json({ error: 'GEMINI_API_KEY belum diset di Vercel.' });
         }
 
-        // Menggunakan model gemini-3.6-flash terbaru sesuai anjuran sistem
+        // Menyusun bagian payload untuk dikirim ke Gemini (Teks + Gambar jika ada)
+        let parts = [];
+
+        // Jika pengguna mengupload gambar, ubah format Base64 agar dibaca oleh Gemini
+        if (images && typeof images === 'object') {
+            for (const [key, base64Str] of Object.entries(images)) {
+                if (base64Str) {
+                    const matches = base64Str.match(/^data:(.+);base64,(.+)$/);
+                    if (matches && matches.length === 3) {
+                        parts.push({
+                            inlineData: {
+                                mimeType: matches[1],
+                                data: matches[2]
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
+        // Masukkan teks instruksi dari pengguna
+        parts.push({ text: prompt });
+
         const geminiResponse = await fetch(
             `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: prompt }] }]
+                    contents: [{ parts: parts }]
                 })
             }
         );
