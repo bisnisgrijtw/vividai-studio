@@ -5,316 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VividAI Studio - Creator Suite</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        darkbg: '#0a0b10',
-                        cardbg: '#12141c',
-                        accent: '#06b6d4',
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="bg-darkbg text-gray-100 flex h-screen overflow-hidden font-sans">
+<body class="bg-[#0a0b10] text-gray-100 flex h-screen overflow-hidden font-sans">
 
-    <!-- SIDEBAR NAVIGATION (11 MENU UTAMA) -->
-    <aside class="w-72 bg-cardbg border-r border-gray-800 flex flex-col justify-between hidden md:flex">
+    <!-- SIDEBAR -->
+    <aside class="w-72 bg-[#12141c] border-r border-gray-800 flex flex-col justify-between hidden md:flex">
         <div>
-            <!-- Brand Header -->
             <div class="p-6 border-b border-gray-800 flex items-center space-x-3">
-                <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold p-2.5 rounded-xl text-lg shadow-md">VA</div>
+                <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold p-2.5 rounded-xl text-lg">VA</div>
                 <div>
                     <h1 class="font-bold text-sm tracking-wider text-white">VIVID AI</h1>
                     <span class="text-[10px] text-gray-400 tracking-widest uppercase">Creator Suite</span>
                 </div>
             </div>
-
-            <!-- Menu List -->
-            <nav class="p-4 space-y-1.5 overflow-y-auto h-[calc(100vh-90px)] text-sm">
-                <div class="text-[11px] font-bold text-gray-500 px-3 pt-2 pb-1 uppercase tracking-wider">Real Konten</div>
-                <a href="#" onclick="switchMenu('image')" id="nav-image" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 font-medium transition">🖼️ Image Editor</a>
-                <a href="#" onclick="switchMenu('character')" id="nav-character" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">👤 Character Sheet</a>
-                <a href="#" onclick="switchMenu('product')" id="nav-product" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">📦 Product Sheet</a>
-                <a href="#" onclick="switchMenu('affiliate')" id="nav-affiliate" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">💬 Affiliate Prompt</a>
-                <a href="#" onclick="switchMenu('custom')" id="nav-custom" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">⚡ Custom Prompt</a>
-                <a href="#" onclick="switchMenu('storyboard')" id="nav-storyboard" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">🎬 Storyboard</a>
-
-                <div class="text-[11px] font-bold text-gray-500 px-3 pt-4 pb-1 uppercase tracking-wider">Animasi</div>
-                <a href="#" onclick="switchMenu('anim_char')" id="nav-anim_char" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">📍 Karakter Animasi</a>
-                <a href="#" onclick="switchMenu('anim_film')" id="nav-anim_film" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">🎞️ Film Animasi</a>
-                <a href="#" onclick="switchMenu('anim_custom')" id="nav-anim_custom" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">🔄 Custom Animasi</a>
-
-                <div class="text-[11px] font-bold text-gray-500 px-3 pt-4 pb-1 uppercase tracking-wider">Audio & Voice</div>
-                <a href="#" onclick="switchMenu('voice')" id="nav-voice" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">🔊 Voice Narator</a>
+            <nav class="p-4 space-y-1.5 text-sm">
+                <div class="text-[11px] font-bold text-gray-500 px-3 pt-2 pb-1 uppercase">Real Konten</div>
+                <a href="#" class="flex items-center px-3.5 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 font-medium">🖼️ Image Editor</a>
             </nav>
         </div>
     </aside>
 
-    <!-- MAIN CONTENT AREA -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-darkbg">
-        <header class="h-16 border-b border-gray-800 flex items-center justify-between px-8 bg-cardbg/40 backdrop-blur">
-            <h2 id="page-title" class="text-base font-bold text-gray-200 tracking-wide">Image Editor & Generator</h2>
-            <span id="badge-tag" class="text-[11px] bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-medium tracking-wide">POWERED BY GEMINI & IMAGEN</span>
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#0a0b10]">
+        <header class="h-16 border-b border-gray-800 flex items-center justify-between px-8 bg-[#12141c]/40 backdrop-blur">
+            <h2 class="text-base font-bold text-gray-200">Image Editor & Generator</h2>
+            <span class="text-[11px] bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-medium">POWERED BY GEMINI & IMAGEN</span>
         </header>
 
-        <div id="dynamic-content" class="p-8 flex-1 overflow-y-auto">
-            <!-- Default: Image Editor Content -->
+        <div class="p-8 flex-1 overflow-y-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full pb-10">
-                <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex flex-col justify-between shadow-xl">
+                <!-- Kiri: Form Input -->
+                <div class="bg-[#12141c] border border-gray-800 p-6 rounded-2xl flex flex-col justify-between shadow-xl">
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Foto Referensi (Opsional)</label>
-                            <div class="grid grid-cols-3 gap-3">
-                                <div onclick="triggerUpload('slot1')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot1">
-                                    <span class="text-xs text-gray-400 font-medium">Slot 1</span>
-                                    <span class="text-[10px] text-gray-500 mt-0.5">(Ref Utama)</span>
-                                </div>
-                                <input type="file" id="file-slot1" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot1')">
-
-                                <div onclick="triggerUpload('slot2')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot2">
-                                    <span class="text-xs text-gray-400 font-medium">Slot 2</span>
-                                </div>
-                                <input type="file" id="file-slot2" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot2')">
-
-                                <div onclick="triggerUpload('slot3')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot3">
-                                    <span class="text-xs text-gray-400 font-medium">Slot 3</span>
-                                </div>
-                                <input type="file" id="file-slot3" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot3')">
+                            <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Foto Referensi (Opsional)</label>
+                            <div onclick="document.getElementById('file-in').click()" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-[#0a0b10]/50" id="preview-box">
+                                <span class="text-xs text-gray-400 font-medium" id="preview-text">Slot 1 (Klik untuk Upload)</span>
                             </div>
+                            <input type="file" id="file-in" class="hidden" accept="image/*" onchange="previewFile(event)">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Instruksi Edit / Pembuatan Gambar Baru</label>
-                            <textarea id="prompt-input" rows="3" class="w-full bg-darkbg border border-gray-700/80 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition" placeholder="Deskripsikan gambar yang ingin dibuat..."></textarea>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Instruksi Edit / Pembuatan Gambar Baru</label>
+                            <textarea id="prompt-input" rows="3" class="w-full bg-[#0a0b10] border border-gray-700 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500" placeholder="Deskripsikan gambar (contoh: menangis)..."></textarea>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Gaya Pencahayaan (Lighting Style)</label>
-                            <select id="extra-option" class="w-full bg-darkbg border border-gray-700/80 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition">
-                                <option>Flat RAW Light</option><option>Cinematic Golden Hour</option><option>Moody Studio Lighting</option>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Gaya Pencahayaan (Lighting Style)</label>
+                            <select id="style-input" class="w-full bg-[#0a0b10] border border-gray-700 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                                <option>Flat RAW Light</option>
+                                <option>Cinematic Golden Hour</option>
+                                <option>Moody Studio Lighting</option>
                             </select>
                         </div>
                     </div>
-                    <button onclick="executeAI('Image Editor')" class="mt-6 w-full bg-gradient-to-r from-gray-900 to-indigo-950 border border-gray-700 hover:opacity-90 text-white font-semibold py-3.5 rounded-xl transition text-sm shadow-lg">Hasilkan 4 Varian Gambar RAW</button>
+                    <button onclick="generateImages()" class="mt-6 w-full bg-gradient-to-r from-gray-900 to-indigo-950 border border-gray-700 hover:opacity-90 text-white font-semibold py-3.5 rounded-xl transition text-sm shadow-lg">Hasilkan 4 Varian Gambar RAW</button>
                 </div>
-                <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex items-center justify-center text-center shadow-xl">
-                    <div id="output-result" class="text-gray-500 text-sm">Hasil 4 varian gambar akan muncul di sini secara instan.</div>
+
+                <!-- Kanan: Hasil Render Gambar Visual -->
+                <div class="bg-[#12141c] border border-gray-800 p-6 rounded-2xl flex flex-col items-center justify-center text-center shadow-xl overflow-y-auto" id="output-container">
+                    <div class="text-gray-500 text-sm">Hasil 4 varian gambar RAW akan muncul di sini secara visual.</div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- JavaScript Logika Lengkap Termasuk Upload Foto -->
     <script>
-        let uploadedImages = {};
-
-        function triggerUpload(slotId) {
-            document.getElementById('file-' + slotId).click();
-        }
-
-        function handleFileSelect(event, slotId) {
+        function previewFile(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    uploadedImages[slotId] = e.target.result; // Simpan data base64 gambar
-                    const previewBox = document.getElementById('preview-' + slotId);
-                    previewBox.style.backgroundImage = `url(${e.target.result})`;
-                    previewBox.style.backgroundSize = 'cover';
-                    previewBox.style.backgroundPosition = 'center';
-                    previewBox.innerHTML = `<span class="bg-black/70 text-white text-[10px] px-2 py-0.5 rounded backdrop-blur">Terupload ✓</span>`;
+                    const box = document.getElementById('preview-box');
+                    box.style.backgroundImage = `url(${e.target.result})`;
+                    box.style.backgroundSize = 'cover';
+                    box.style.backgroundPosition = 'center';
+                    document.getElementById('preview-text').innerHTML = `<span class="bg-black/70 text-white text-[10px] px-2 py-0.5 rounded">Terupload ✓</span>`;
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        function switchMenu(menuKey) {
-            document.querySelectorAll('.menu-btn').forEach(el => {
-                el.className = "menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition";
-            });
+        async function generateImages() {
+            const prompt = document.getElementById('prompt-input').value;
+            const style = document.getElementById('style-input').value;
+            const container = document.getElementById('output-container');
 
-            const activeNav = document.getElementById('nav-' + menuKey);
-            if(activeNav) {
-                activeNav.className = "menu-btn flex items-center px-3.5 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 font-medium transition";
+            if (!prompt) {
+                return alert('Mohon isi instruksi gambar terlebih dahulu!');
             }
 
-            const titleEl = document.getElementById('page-title');
-            const badgeEl = document.getElementById('badge-tag');
-            const contentArea = document.getElementById('dynamic-content');
-            uploadedImages = {}; // Reset file upload saat pindah menu
-
-            if(menuKey === 'image') {
-                titleEl.innerText = "Image Editor & Generator";
-                badgeEl.innerText = "POWERED BY GEMINI & IMAGEN";
-                badgeEl.className = "text-[11px] bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-medium tracking-wide";
-                contentArea.innerHTML = `
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full pb-10">
-                        <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex flex-col justify-between shadow-xl">
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Foto Referensi (Opsional)</label>
-                                    <div class="grid grid-cols-3 gap-3">
-                                        <div onclick="triggerUpload('slot1')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot1"><span class="text-xs text-gray-400 font-medium">Slot 1</span></div>
-                                        <input type="file" id="file-slot1" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot1')">
-                                        <div onclick="triggerUpload('slot2')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot2"><span class="text-xs text-gray-400 font-medium">Slot 2</span></div>
-                                        <input type="file" id="file-slot2" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot2')">
-                                        <div onclick="triggerUpload('slot3')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot3"><span class="text-xs text-gray-400 font-medium">Slot 3</span></div>
-                                        <input type="file" id="file-slot3" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot3')">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Instruksi Edit / Pembuatan Gambar Baru</label>
-                                    <textarea id="prompt-input" rows="3" class="w-full bg-darkbg border border-gray-700/80 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition" placeholder="Deskripsikan gambar yang ingin dibuat..."></textarea>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Gaya Pencahayaan (Lighting Style)</label>
-                                    <select id="extra-option" class="w-full bg-darkbg border border-gray-700/80 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition">
-                                        <option>Flat RAW Light</option><option>Cinematic Golden Hour</option><option>Moody Studio Lighting</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button onclick="executeAI('Image Editor')" class="mt-6 w-full bg-gradient-to-r from-gray-900 to-indigo-950 border border-gray-700 hover:opacity-90 text-white font-semibold py-3.5 rounded-xl transition text-sm">Hasilkan 4 Varian Gambar RAW</button>
-                        </div>
-                        <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex items-center justify-center text-center shadow-xl">
-                            <div id="output-result" class="text-gray-500 text-sm">Hasil 4 varian gambar akan muncul di sini.</div>
-                        </div>
-                    </div>`;
-            } else if(menuKey === 'character') {
-                titleEl.innerText = "Character Sheet Generator";
-                badgeEl.innerText = "IMAGE-TO-IMAGE AI";
-                badgeEl.className = "text-[11px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-medium tracking-wide";
-                contentArea.innerHTML = `
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full pb-10">
-                        <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex flex-col justify-between shadow-xl">
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Upload Wajah/Karakter Referensi</label>
-                                    <div onclick="triggerUpload('char')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-36 flex flex-col items-center justify-center text-center p-4 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-char">
-                                        <span class="text-sm text-gray-300 font-medium">📁 Klik untuk Upload Foto Wajah Karakter</span>
-                                    </div>
-                                    <input type="file" id="file-char" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'char')">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Pakaian & Style Spesifik</label>
-                                    <input type="text" id="prompt-input" class="w-full bg-darkbg border border-gray-700/80 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition" placeholder="Contoh: Memakai kaos putih dan celana jeans biru...">
-                                </div>
-                            </div>
-                            <button onclick="executeAI('Character Sheet')" class="mt-6 w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3.5 rounded-xl transition text-sm shadow-lg">Generate 2 Varian RAW Character Sheet</button>
-                        </div>
-                        <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex items-center justify-center text-center shadow-xl">
-                            <div id="output-result" class="text-gray-500 text-sm">Hasil 2 varian karakter sheet akan muncul di sini.</div>
-                        </div>
-                    </div>`;
-            } else if(menuKey === 'product') {
-                titleEl.innerText = "Product Sheet Generator";
-                badgeEl.innerText = "IMAGE-TO-IMAGE AI";
-                badgeEl.className = "text-[11px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-medium tracking-wide";
-                contentArea.innerHTML = `
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full pb-10">
-                        <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex flex-col justify-between shadow-xl">
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Upload Foto Produk Referensi</label>
-                                    <div onclick="triggerUpload('prod')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-36 flex flex-col items-center justify-center text-center p-4 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-prod">
-                                        <span class="text-sm text-gray-300 font-medium">📁 Klik untuk Upload Foto Produk</span>
-                                    </div>
-                                    <input type="file" id="file-prod" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'prod')">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Gaya/Background Spesifik</label>
-                                    <input type="text" id="prompt-input" class="w-full bg-darkbg border border-gray-700/80 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition" placeholder="Contoh: Background putih polos, pencahayaan studio...">
-                                </div>
-                            </div>
-                            <button onclick="executeAI('Product Sheet')" class="mt-6 w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-3.5 rounded-xl transition text-sm shadow-lg">Generate 2 Varian RAW Product Sheet</button>
-                        </div>
-                        <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex items-center justify-center text-center shadow-xl">
-                            <div id="output-result" class="text-gray-500 text-sm">Hasil 2 varian produk sheet akan muncul di sini.</div>
-                        </div>
-                    </div>`;
-            } else if(menuKey === 'voice') {
-                titleEl.innerText = "Voice Narator Generator";
-                badgeEl.innerText = "AI TEXT-TO-SPEECH";
-                badgeEl.className = "text-[11px] bg-teal-500/10 text-teal-400 border border-teal-500/20 px-3 py-1 rounded-full font-medium tracking-wide";
-                contentArea.innerHTML = `
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full pb-10">
-                        <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex flex-col justify-between shadow-xl">
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Teks Narasi (Naskah)</label>
-                                    <textarea id="prompt-input" rows="4" class="w-full bg-darkbg border border-gray-700/80 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition" placeholder="Ketik atau tempelkan naskah yang ingin diubah menjadi suara..."></textarea>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Karakter Suara AI</label>
-                                    <select id="extra-option" class="w-full bg-darkbg border border-gray-700/80 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition">
-                                        <option>Zephyr (Bright / Cerah - Pria/Wanita)</option>
-                                        <option>Puck (Deep / Berwibawa)</option>
-                                        <option>Aoede (Soft / Lembut)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button onclick="executeAI('Voice Narator')" class="mt-6 w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold py-3.5 rounded-xl transition text-sm shadow-lg">Generate Suara (WAV)</button>
-                        </div>
-                        <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex items-center justify-center text-center shadow-xl">
-                            <div id="output-result" class="text-gray-500 text-sm">Hasil simulasi audio narator profesional akan muncul di sini.</div>
-                        </div>
-                    </div>`;
-            } else {
-                titleEl.innerText = menuKey.toUpperCase() + " Generator";
-                badgeEl.innerText = "AI CREATOR SUITE";
-                contentArea.innerHTML = `
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full pb-10">
-                        <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex flex-col justify-between shadow-xl">
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Instruksi / Detail Topik</label>
-                                    <textarea id="prompt-input" rows="4" class="w-full bg-darkbg border border-gray-700/80 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition" placeholder="Masukkan detail instruksi konten..."></textarea>
-                                </div>
-                            </div>
-                            <button onclick="executeAI('${menuKey}')" class="mt-6 w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3.5 rounded-xl transition text-sm shadow-lg">Generate Hasil ${menuKey.toUpperCase()}</button>
-                        </div>
-                        <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex items-center justify-center text-center shadow-xl">
-                            <div id="output-result" class="text-gray-500 text-sm">Hasil generate otomatis akan muncul di sini.</div>
-                        </div>
-                    </div>`;
-            }
-        }
-
-        async function executeAI(menuName) {
-            const promptInput = document.getElementById('prompt-input');
-            const extraOption = document.getElementById('extra-option');
-            const output = document.getElementById('output-result');
-            
-            const userText = promptInput ? promptInput.value : '';
-            const optionVal = extraOption ? extraOption.value : '';
-
-            if(!userText && Object.keys(uploadedImages).length === 0) {
-                return alert('Mohon isi instruksi atau unggah foto referensi terlebih dahulu!');
-            }
-
-            output.innerHTML = `<div class="animate-pulse text-cyan-400 text-sm">Sedang menganalisis foto & memproses modul <b>${menuName}</b> via AI...</div>`;
-
-            let hasImageInfo = Object.keys(uploadedImages).length > 0 ? " (Dilengkapi dengan foto referensi pengguna)" : "";
-            const fullPrompt = `Bertindaklah sebagai AI Creator Suite profesional. Buatkan hasil/prompt profesional untuk menu "${menuName}"${hasImageInfo} berdasarkan instruksi berikut: "${userText}" ${optionVal ? 'dengan opsi tambahan: ' + optionVal : ''}. Berikan hasil yang terstruktur, lengkap, dan siap pakai.`;
+            container.innerHTML = `
+                <div class="animate-pulse text-cyan-400 text-sm flex flex-col items-center justify-center h-full space-y-3">
+                    <div class="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p>Sedang merender 4 varian gambar RAW...</p>
+                </div>`;
 
             try {
-                const response = await fetch('/api/generate', {
+                const res = await fetch('/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: fullPrompt })
+                    body: JSON.stringify({ prompt, style })
                 });
-                
-                const data = await response.json();
-                
-                if(data.result) {
-                    output.innerHTML = `<div class="text-left space-y-2 max-h-96 overflow-y-auto w-full"><p class="text-emerald-400 font-bold text-xs uppercase tracking-wider">✨ Hasil ${menuName}:</p><p class="text-gray-200 text-xs bg-darkbg p-4 rounded-xl border border-gray-800 whitespace-pre-wrap leading-relaxed">${data.result}</p></div>`;
+
+                const data = await res.json();
+
+                if (data.images && data.images.length > 0) {
+                    let grid = `<div class="grid grid-cols-2 gap-3 w-full h-full overflow-y-auto pr-1">`;
+                    data.images.forEach((url, i) => {
+                        grid += `
+                            <div class="bg-[#0a0b10] border border-gray-800 rounded-xl overflow-hidden flex flex-col shadow-md">
+                                <div class="bg-gray-900 text-[10px] font-bold text-gray-400 py-1 px-2 text-left uppercase border-b border-gray-800">RAW IMAGE</div>
+                                <div class="relative group flex-1 bg-black/40 min-h-[160px] flex items-center justify-center">
+                                    <img src="${url}" alt="RAW ${i+1}" class="w-full h-full object-cover">
+                                    <a href="${url}" target="_blank" download="raw-${i+1}.jpg" class="absolute bottom-2 right-2 bg-black/70 hover:bg-black text-white p-1.5 rounded-lg text-xs shadow flex items-center justify-center">📥</a>
+                                </div>
+                            </div>`;
+                    });
+                    grid += `</div>`;
+                    container.innerHTML = grid;
                 } else {
-                    output.innerHTML = `<span class="text-red-400 text-xs">Gagal: ${data.error || 'Terjadi kesalahan sistem.'}</span>`;
+                    container.innerHTML = `<span class="text-red-400 text-xs">Gagal: ${data.error || 'Terjadi kesalahan sistem.'}</span>`;
                 }
             } catch (err) {
-                output.innerHTML = `<span class="text-red-400 text-xs">Gagal terhubung ke server backend Vercel.</span>`;
+                container.innerHTML = `<span class="text-red-400 text-xs">Gagal terhubung ke server Vercel.</span>`;
             }
         }
     </script>
