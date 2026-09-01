@@ -25,7 +25,6 @@ export default async function handler(req, res) {
 
         const cleanPrompt = encodeURIComponent(`${prompt}, ${style || 'Flat RAW Light'}, photorealistic, 8k, highly detailed`);
 
-        // Daftar 4 URL endpoint visual generator instan yang stabil
         const imageUrls = [
             `https://image.pollinations.ai/prompt/${cleanPrompt}?width=512&height=640&seed=111&nologo=true`,
             `https://image.pollinations.ai/prompt/${cleanPrompt}?width=512&height=640&seed=222&nologo=true`,
