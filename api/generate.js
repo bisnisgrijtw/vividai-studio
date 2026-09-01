@@ -1,15 +1,10 @@
-export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Credentials', true);
+export default function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-    );
+    res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
+        return res.status(200).end();
     }
 
     if (req.method !== 'POST') {
@@ -18,22 +13,18 @@ export default async function handler(req, res) {
 
     try {
         const { prompt, style } = req.body;
+        const safePrompt = encodeURIComponent(prompt || 'portrait');
+        const lighting = encodeURIComponent(style || 'Flat RAW Light');
 
-        if (!prompt) {
-            return res.status(400).json({ error: 'Prompt tidak boleh kosong.' });
-        }
-
-        const cleanPrompt = encodeURIComponent(`${prompt}, ${style || 'Flat RAW Light'}, photorealistic, 8k, highly detailed`);
-
-        const imageUrls = [
-            `https://image.pollinations.ai/prompt/${cleanPrompt}?width=512&height=640&seed=111&nologo=true`,
-            `https://image.pollinations.ai/prompt/${cleanPrompt}?width=512&height=640&seed=222&nologo=true`,
-            `https://image.pollinations.ai/prompt/${cleanPrompt}?width=512&height=640&seed=333&nologo=true`,
-            `https://image.pollinations.ai/prompt/${cleanPrompt}?width=512&height=640&seed=444&nologo=true`
+        // Menghasilkan 4 URL gambar RAW instan berstandar tinggi
+        const images = [
+            `https://image.pollinations.ai/prompt/${safePrompt}%20${lighting}?width=512&height=640&seed=101&nologo=true`,
+            `https://image.pollinations.ai/prompt/${safePrompt}%20${lighting}?width=512&height=640&seed=202&nologo=true`,
+            `https://image.pollinations.ai/prompt/${safePrompt}%20${lighting}?width=512&height=640&seed=303&nologo=true`,
+            `https://image.pollinations.ai/prompt/${safePrompt}%20${lighting}?width=512&height=640&seed=404&nologo=true`
         ];
 
-        return res.status(200).json({ images: imageUrls });
-
+        return res.status(200).json({ images });
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
