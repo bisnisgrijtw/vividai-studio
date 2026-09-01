@@ -1,11 +1,3 @@
-export const config = {
-    api: {
-        bodyParser: {
-            sizeLimit: '10mb',
-        },
-    },
-};
-
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,17 +19,18 @@ export default async function handler(req, res) {
     try {
         const { prompt, style } = req.body;
 
-        // Menggunakan engine visual publik berkecepatan tinggi yang merender gambar secara instan
-        // Berdasarkan prompt dan gaya pencahayaan RAW yang dipilih
-        const enhancedPrompt = `${prompt}, cinematic photography, ${style || 'Flat RAW Light'}, uncompressed, photorealistic, 8k resolution, highly detailed`;
-        const encodedPrompt = encodeURIComponent(enhancedPrompt);
+        if (!prompt) {
+            return res.status(400).json({ error: 'Prompt tidak boleh kosong.' });
+        }
 
-        // Membuat 4 varian URL gambar unik menggunakan seed yang berbeda
+        const cleanPrompt = encodeURIComponent(`${prompt}, ${style || 'Flat RAW Light'}, photorealistic, 8k, highly detailed`);
+
+        // Daftar 4 URL endpoint visual generator instan yang stabil
         const imageUrls = [
-            `https://pollinations.ai/p/${encodedPrompt}?width=512&height=640&seed=101&nologo=true`,
-            `https://pollinations.ai/p/${encodedPrompt}?width=512&height=640&seed=202&nologo=true`,
-            `https://pollinations.ai/p/${encodedPrompt}?width=512&height=640&seed=303&nologo=true`,
-            `https://pollinations.ai/p/${encodedPrompt}?width=512&height=640&seed=404&nologo=true`
+            `https://image.pollinations.ai/prompt/${cleanPrompt}?width=512&height=640&seed=111&nologo=true`,
+            `https://image.pollinations.ai/prompt/${cleanPrompt}?width=512&height=640&seed=222&nologo=true`,
+            `https://image.pollinations.ai/prompt/${cleanPrompt}?width=512&height=640&seed=333&nologo=true`,
+            `https://image.pollinations.ai/prompt/${cleanPrompt}?width=512&height=640&seed=444&nologo=true`
         ];
 
         return res.status(200).json({ images: imageUrls });
