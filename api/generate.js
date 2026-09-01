@@ -1,7 +1,7 @@
 export const config = {
     api: {
         bodyParser: {
-            sizeLimit: '10mb', // Batas ukuran file gambar yang diupload
+            sizeLimit: '10mb',
         },
     },
 };
@@ -25,55 +25,22 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { prompt, images } = req.body;
-        const apiKey = process.env.GEMINI_API_KEY;
+        const { prompt, style } = req.body;
 
-        if (!apiKey) {
-            return res.status(500).json({ error: 'GEMINI_API_KEY belum diset di Vercel.' });
-        }
+        // Menggunakan engine visual publik berkecepatan tinggi yang merender gambar secara instan
+        // Berdasarkan prompt dan gaya pencahayaan RAW yang dipilih
+        const enhancedPrompt = `${prompt}, cinematic photography, ${style || 'Flat RAW Light'}, uncompressed, photorealistic, 8k resolution, highly detailed`;
+        const encodedPrompt = encodeURIComponent(enhancedPrompt);
 
-        // Menyusun bagian payload untuk dikirim ke Gemini (Teks + Gambar jika ada)
-        let parts = [];
+        // Membuat 4 varian URL gambar unik menggunakan seed yang berbeda
+        const imageUrls = [
+            `https://pollinations.ai/p/${encodedPrompt}?width=512&height=640&seed=101&nologo=true`,
+            `https://pollinations.ai/p/${encodedPrompt}?width=512&height=640&seed=202&nologo=true`,
+            `https://pollinations.ai/p/${encodedPrompt}?width=512&height=640&seed=303&nologo=true`,
+            `https://pollinations.ai/p/${encodedPrompt}?width=512&height=640&seed=404&nologo=true`
+        ];
 
-        // Jika pengguna mengupload gambar, ubah format Base64 agar dibaca oleh Gemini
-        if (images && typeof images === 'object') {
-            for (const [key, base64Str] of Object.entries(images)) {
-                if (base64Str) {
-                    const matches = base64Str.match(/^data:(.+);base64,(.+)$/);
-                    if (matches && matches.length === 3) {
-                        parts.push({
-                            inlineData: {
-                                mimeType: matches[1],
-                                data: matches[2]
-                            }
-                        });
-                    }
-                }
-            }
-        }
-
-        // Masukkan teks instruksi dari pengguna
-        parts.push({ text: prompt });
-
-        const geminiResponse = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`,
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: parts }]
-                })
-            }
-        );
-
-        const data = await geminiResponse.json();
-
-        if (data.candidates && data.candidates[0].content.parts[0].text) {
-            const aiText = data.candidates[0].content.parts[0].text;
-            return res.status(200).json({ result: aiText });
-        } else {
-            return res.status(500).json({ error: data.error?.message || 'Gagal memproses respon dari Gemini.' });
-        }
+        return res.status(200).json({ images: imageUrls });
 
     } catch (error) {
         return res.status(500).json({ error: error.message });
