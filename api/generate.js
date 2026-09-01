@@ -24,9 +24,9 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: 'GEMINI_API_KEY belum diset di Vercel.' });
         }
 
-        // Menggunakan jalur REST API resmi Google Gemini (Stabil & Cepat)
+        // Menggunakan model 'gemini-pro' yang universal dan paling stabil di v1beta
         const geminiResponse = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
