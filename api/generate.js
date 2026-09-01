@@ -1,7 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
-
 export default async function handler(req, res) {
-    // Mengizinkan CORS header supaya aman dipanggil dari frontend
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -21,19 +18,33 @@ export default async function handler(req, res) {
 
     try {
         const { prompt } = req.body;
-        
-        if (!process.env.GEMINI_API_KEY) {
-            return res.status(500).json({ error: 'GEMINI_API_KEY belum diset di Vercel Environment Variables.' });
+        const apiKey = process.env.GEMINI_API_KEY;
+
+        if (!apiKey) {
+            return res.status(500).json({ error: 'GEMINI_API_KEY belum diset di Vercel.' });
         }
 
-        const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+        // Menggunakan jalur REST API resmi Google Gemini (Stabil & Cepat)
+        const geminiResponse = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }]
+                })
+            }
+        );
 
-        const response = await ai.models.generateContent({
-            model: 'gemini-1.5-flash',
-            contents: prompt,
-        });
+        const data = await geminiResponse.json();
 
-        return res.status(200).json({ result: response.text });
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+            const aiText = data.candidates[0].content.parts[0].text;
+            return res.status(200).json({ result: aiText });
+        } else {
+            return res.status(500).json({ error: data.error?.message || 'Gagal memproses respon dari Gemini.' });
+        }
+
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
