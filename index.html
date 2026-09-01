@@ -36,7 +36,6 @@
 
             <!-- Menu List -->
             <nav class="p-4 space-y-1.5 overflow-y-auto h-[calc(100vh-90px)] text-sm">
-                <!-- Kategori: Real Konten -->
                 <div class="text-[11px] font-bold text-gray-500 px-3 pt-2 pb-1 uppercase tracking-wider">Real Konten</div>
                 <a href="#" onclick="switchMenu('image')" id="nav-image" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 font-medium transition">🖼️ Image Editor</a>
                 <a href="#" onclick="switchMenu('character')" id="nav-character" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">👤 Character Sheet</a>
@@ -45,13 +44,11 @@
                 <a href="#" onclick="switchMenu('custom')" id="nav-custom" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">⚡ Custom Prompt</a>
                 <a href="#" onclick="switchMenu('storyboard')" id="nav-storyboard" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">🎬 Storyboard</a>
 
-                <!-- Kategori: Animasi -->
                 <div class="text-[11px] font-bold text-gray-500 px-3 pt-4 pb-1 uppercase tracking-wider">Animasi</div>
                 <a href="#" onclick="switchMenu('anim_char')" id="nav-anim_char" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">📍 Karakter Animasi</a>
                 <a href="#" onclick="switchMenu('anim_film')" id="nav-anim_film" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">🎞️ Film Animasi</a>
                 <a href="#" onclick="switchMenu('anim_custom')" id="nav-anim_custom" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">🔄 Custom Animasi</a>
 
-                <!-- Kategori: Audio & Voice -->
                 <div class="text-[11px] font-bold text-gray-500 px-3 pt-4 pb-1 uppercase tracking-wider">Audio & Voice</div>
                 <a href="#" onclick="switchMenu('voice')" id="nav-voice" class="menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition">🔊 Voice Narator</a>
             </nav>
@@ -60,24 +57,34 @@
 
     <!-- MAIN CONTENT AREA -->
     <main class="flex-1 flex flex-col h-screen overflow-hidden bg-darkbg">
-        <!-- Top Header -->
         <header class="h-16 border-b border-gray-800 flex items-center justify-between px-8 bg-cardbg/40 backdrop-blur">
             <h2 id="page-title" class="text-base font-bold text-gray-200 tracking-wide">Image Editor & Generator</h2>
             <span id="badge-tag" class="text-[11px] bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-medium tracking-wide">POWERED BY GEMINI & IMAGEN</span>
         </header>
 
-        <!-- Dynamic Content Body -->
         <div id="dynamic-content" class="p-8 flex-1 overflow-y-auto">
-            <!-- Konten Default: Image Editor -->
+            <!-- Default: Image Editor Content -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full pb-10">
                 <div class="bg-cardbg border border-gray-800/80 p-6 rounded-2xl flex flex-col justify-between shadow-xl">
                     <div class="space-y-4">
                         <div>
                             <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Foto Referensi (Opsional)</label>
                             <div class="grid grid-cols-3 gap-3">
-                                <div class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition"><span class="text-xs text-gray-400 font-medium">Slot 1</span><span class="text-[10px] text-gray-500 mt-0.5">(Ref Utama)</span></div>
-                                <div class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition"><span class="text-xs text-gray-400 font-medium">Slot 2</span></div>
-                                <div class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition"><span class="text-xs text-gray-400 font-medium">Slot 3</span></div>
+                                <div onclick="triggerUpload('slot1')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot1">
+                                    <span class="text-xs text-gray-400 font-medium">Slot 1</span>
+                                    <span class="text-[10px] text-gray-500 mt-0.5">(Ref Utama)</span>
+                                </div>
+                                <input type="file" id="file-slot1" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot1')">
+
+                                <div onclick="triggerUpload('slot2')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot2">
+                                    <span class="text-xs text-gray-400 font-medium">Slot 2</span>
+                                </div>
+                                <input type="file" id="file-slot2" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot2')">
+
+                                <div onclick="triggerUpload('slot3')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot3">
+                                    <span class="text-xs text-gray-400 font-medium">Slot 3</span>
+                                </div>
+                                <input type="file" id="file-slot3" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot3')">
                             </div>
                         </div>
                         <div>
@@ -87,9 +94,7 @@
                         <div>
                             <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Gaya Pencahayaan (Lighting Style)</label>
                             <select id="extra-option" class="w-full bg-darkbg border border-gray-700/80 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition">
-                                <option>Flat RAW Light</option>
-                                <option>Cinematic Golden Hour</option>
-                                <option>Moody Studio Lighting</option>
+                                <option>Flat RAW Light</option><option>Cinematic Golden Hour</option><option>Moody Studio Lighting</option>
                             </select>
                         </div>
                     </div>
@@ -102,8 +107,30 @@
         </div>
     </main>
 
-    <!-- JavaScript Logika & Fungsi Spesifik Menu -->
+    <!-- JavaScript Logika Lengkap Termasuk Upload Foto -->
     <script>
+        let uploadedImages = {};
+
+        function triggerUpload(slotId) {
+            document.getElementById('file-' + slotId).click();
+        }
+
+        function handleFileSelect(event, slotId) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImages[slotId] = e.target.result; // Simpan data base64 gambar
+                    const previewBox = document.getElementById('preview-' + slotId);
+                    previewBox.style.backgroundImage = `url(${e.target.result})`;
+                    previewBox.style.backgroundSize = 'cover';
+                    previewBox.style.backgroundPosition = 'center';
+                    previewBox.innerHTML = `<span class="bg-black/70 text-white text-[10px] px-2 py-0.5 rounded backdrop-blur">Terupload ✓</span>`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
         function switchMenu(menuKey) {
             document.querySelectorAll('.menu-btn').forEach(el => {
                 el.className = "menu-btn flex items-center px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/60 transition";
@@ -117,6 +144,7 @@
             const titleEl = document.getElementById('page-title');
             const badgeEl = document.getElementById('badge-tag');
             const contentArea = document.getElementById('dynamic-content');
+            uploadedImages = {}; // Reset file upload saat pindah menu
 
             if(menuKey === 'image') {
                 titleEl.innerText = "Image Editor & Generator";
@@ -129,9 +157,12 @@
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Foto Referensi (Opsional)</label>
                                     <div class="grid grid-cols-3 gap-3">
-                                        <div class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition"><span class="text-xs text-gray-400 font-medium">Slot 1</span></div>
-                                        <div class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition"><span class="text-xs text-gray-400 font-medium">Slot 2</span></div>
-                                        <div class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition"><span class="text-xs text-gray-400 font-medium">Slot 3</span></div>
+                                        <div onclick="triggerUpload('slot1')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot1"><span class="text-xs text-gray-400 font-medium">Slot 1</span></div>
+                                        <input type="file" id="file-slot1" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot1')">
+                                        <div onclick="triggerUpload('slot2')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot2"><span class="text-xs text-gray-400 font-medium">Slot 2</span></div>
+                                        <input type="file" id="file-slot2" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot2')">
+                                        <div onclick="triggerUpload('slot3')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-28 flex flex-col items-center justify-center text-center p-2 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-slot3"><span class="text-xs text-gray-400 font-medium">Slot 3</span></div>
+                                        <input type="file" id="file-slot3" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'slot3')">
                                     </div>
                                 </div>
                                 <div>
@@ -161,9 +192,10 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Upload Wajah/Karakter Referensi</label>
-                                    <div class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-36 flex flex-col items-center justify-center text-center p-4 cursor-pointer bg-darkbg/50 transition">
+                                    <div onclick="triggerUpload('char')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-36 flex flex-col items-center justify-center text-center p-4 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-char">
                                         <span class="text-sm text-gray-300 font-medium">📁 Klik untuk Upload Foto Wajah Karakter</span>
                                     </div>
+                                    <input type="file" id="file-char" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'char')">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Pakaian & Style Spesifik</label>
@@ -186,9 +218,10 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Upload Foto Produk Referensi</label>
-                                    <div class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-36 flex flex-col items-center justify-center text-center p-4 cursor-pointer bg-darkbg/50 transition">
+                                    <div onclick="triggerUpload('prod')" class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl h-36 flex flex-col items-center justify-center text-center p-4 cursor-pointer bg-darkbg/50 transition overflow-hidden relative" id="preview-prod">
                                         <span class="text-sm text-gray-300 font-medium">📁 Klik untuk Upload Foto Produk</span>
                                     </div>
+                                    <input type="file" id="file-prod" class="hidden" accept="image/*" onchange="handleFileSelect(event, 'prod')">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Gaya/Background Spesifik</label>
@@ -249,7 +282,6 @@
             }
         }
 
-        // Fungsi Fungsionalitas Nyata Terhubung ke Backend Vercel
         async function executeAI(menuName) {
             const promptInput = document.getElementById('prompt-input');
             const extraOption = document.getElementById('extra-option');
@@ -258,13 +290,14 @@
             const userText = promptInput ? promptInput.value : '';
             const optionVal = extraOption ? extraOption.value : '';
 
-            if(!userText) {
-                return alert('Mohon isi instruksi atau detail konten terlebih dahulu!');
+            if(!userText && Object.keys(uploadedImages).length === 0) {
+                return alert('Mohon isi instruksi atau unggah foto referensi terlebih dahulu!');
             }
 
-            output.innerHTML = `<div class="animate-pulse text-cyan-400 text-sm">Sedang memproses modul <b>${menuName}</b> via AI...</div>`;
+            output.innerHTML = `<div class="animate-pulse text-cyan-400 text-sm">Sedang menganalisis foto & memproses modul <b>${menuName}</b> via AI...</div>`;
 
-            const fullPrompt = `Bertindaklah sebagai AI Creator Suite profesional. Buatkan hasil/prompt profesional untuk menu "${menuName}" berdasarkan instruksi berikut: "${userText}" ${optionVal ? 'dengan opsi tambahan: ' + optionVal : ''}. Berikan hasil yang terstruktur, lengkap, dan siap pakai.`;
+            let hasImageInfo = Object.keys(uploadedImages).length > 0 ? " (Dilengkapi dengan foto referensi pengguna)" : "";
+            const fullPrompt = `Bertindaklah sebagai AI Creator Suite profesional. Buatkan hasil/prompt profesional untuk menu "${menuName}"${hasImageInfo} berdasarkan instruksi berikut: "${userText}" ${optionVal ? 'dengan opsi tambahan: ' + optionVal : ''}. Berikan hasil yang terstruktur, lengkap, dan siap pakai.`;
 
             try {
                 const response = await fetch('/api/generate', {
