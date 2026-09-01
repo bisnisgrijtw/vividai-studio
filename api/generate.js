@@ -24,9 +24,9 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: 'GEMINI_API_KEY belum diset di Vercel.' });
         }
 
-        // Menggunakan model gemini-2.5-flash yang aktif dan support penuh
+        // Menggunakan model gemini-3.6-flash terbaru sesuai anjuran sistem
         const geminiResponse = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
