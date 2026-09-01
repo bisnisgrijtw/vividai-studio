@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VividAI Studio - Creator Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0a0b10',
+                        cardbg: '#12141c',
+                        accent: '#06b6d4',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkbg text-gray-100 flex h-screen overflow-hidden font-sans">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="w-64 bg-cardbg border-r border-gray-800 flex flex-col justify-between hidden md:flex">
+        <div>
+            <!-- Brand Header -->
+            <div class="p-6 border-b border-gray-800 flex items-center space-x-3">
+                <div class="bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold p-2 rounded-xl text-lg">VA</div>
+                <div>
+                    <h1 class="font-bold text-base tracking-wide">VIVID AI</h1>
+                    <span class="text-xs text-gray-400">CREATOR SUITE</span>
+                </div>
+            </div>
+
+            <!-- Menu List -->
+            <nav class="p-4 space-y-1 overflow-y-auto h-[calc(100vh-100px)]">
+                <div class="text-xs font-semibold text-gray-500 px-3 py-2 uppercase">Real Konten</div>
+                <a href="#" onclick="switchMenu('image')" class="menu-item flex items-center px-3 py-2.5 rounded-lg bg-cyan-500/10 text-cyan-400 font-medium text-sm transition">🖼️ Image Editor</a>
+                <a href="#" onclick="switchMenu('character')" class="menu-item flex items-center px-3 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 text-sm transition">👤 Character Sheet</a>
+                <a href="#" onclick="switchMenu('product')" class="menu-item flex items-center px-3 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 text-sm transition">📦 Product Sheet</a>
+                <a href="#" onclick="switchMenu('affiliate')" class="menu-item flex items-center px-3 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 text-sm transition">💬 Affiliate Prompt</a>
+                <a href="#" onclick="switchMenu('storyboard')" class="menu-item flex items-center px-3 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 text-sm transition">🎬 Storyboard</a>
+                
+                <div class="text-xs font-semibold text-gray-500 px-3 pt-4 pb-2 uppercase">Audio & Voice</div>
+                <a href="#" onclick="switchMenu('voice')" class="menu-item flex items-center px-3 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 text-sm transition">🎙️ Voice Narator</a>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 flex flex-col h-screen overflow-y-auto">
+        <header class="h-16 border-b border-gray-800 flex items-center justify-between px-8 bg-cardbg/50 backdrop-blur">
+            <h2 id="page-title" class="text-lg font-semibold text-cyan-400">Image Editor & Generator</h2>
+            <span class="text-xs bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full border border-cyan-500/30">POWERED BY GEMINI & VIVID AI</span>
+        </header>
+
+        <div id="content-area" class="p-8 flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Dynamic Form Area -->
+            <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl flex flex-col justify-between">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Instruksi / Pembuatan Konten AI</label>
+                    <textarea id="prompt-input" rows="4" class="w-full bg-darkbg border border-gray-700 rounded-xl p-4 text-sm text-white focus:outline-none focus:border-cyan-500" placeholder="Deskripsikan ide atau produk yang ingin dibuat..."></textarea>
+                </div>
+                <button onclick="generateContent()" class="mt-6 w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:opacity-90 text-white font-semibold py-3 rounded-xl transition shadow-lg shadow-cyan-500/20">
+                    Generate Hasil AI
+                </button>
+            </div>
+
+            <!-- Output Result Area -->
+            <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl flex items-center justify-center text-center">
+                <div id="output-result" class="text-gray-500 text-sm">
+                    Hasil generate akan muncul di sini secara instan. Siap untuk dijual ke pembeli!
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchMenu(menuName) {
+            const titleEl = document.getElementById('page-title');
+            if(menuName === 'image') titleEl.innerText = "Image Editor & Generator";
+            if(menuName === 'character') titleEl.innerText = "Character Sheet Generator";
+            if(menuName === 'product') titleEl.innerText = "Product Sheet Generator";
+            if(menuName === 'affiliate') titleEl.innerText = "Affiliate Scene Generator";
+            if(menuName === 'storyboard') titleEl.innerText = "Storyboard Generator";
+            if(menuName === 'voice') titleEl.innerText = "Voice Narator Generator";
+        }
+
+        function generateContent() {
+            const prompt = document.getElementById('prompt-input').value;
+            const output = document.getElementById('output-result');
+            if(!prompt) return alert('Mohon isi instruksi terlebih dahulu!');
+
+            output.innerHTML = `<div class="animate-pulse text-cyan-400">Memproses kecerdasan buatan VividAI...</div>`;
+            
+            setTimeout(() => {
+                output.innerHTML = `<div class="text-left space-y-2"><p class="text-green-400 font-bold">✨ Berhasil Digenerate!</p><p class="text-gray-300 text-xs bg-darkbg p-3 rounded-lg border border-gray-800">Hasil dari prompt: "${prompt}" telah diproses dengan sukses oleh sistem VividAI Studio.</p></div>`;
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
